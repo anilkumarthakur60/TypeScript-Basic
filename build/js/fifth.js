@@ -53,3 +53,4 @@ const preview = {
     title: 'Math'
 };
 console.log('------------finish fifthe');
+// 4: 40

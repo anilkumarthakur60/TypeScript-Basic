@@ -109,10 +109,10 @@ type AssignPreview = Omit<Assignment, "grade" | "verified">
 
 const preview: AssignPreview = {
     studentId: '123',
-    grade: 'Math'
+    title: 'Math'
 }
 
 console.log('------------finish fifthe');
 
 
-4: 40
+// 4: 40
