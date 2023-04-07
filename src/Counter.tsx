@@ -1,21 +1,23 @@
-import { useState, ReactNode, useReducer } from "react";
+import { useState, ReactNode, useReducer, ChangeEvent } from "react";
 
 
 
 
-const initialState: {
-    count: number
-} = {
-    count: 0
+const initialState = {
+    count: 0,
+    text: ''
 }
 
 const enum reducerActionType {
-    INCREMENT,
-    DECREMENT
+    increment,
+    decrement,
+    newInput
+
 }
 
 type ReducerAction = {
-    type: reducerActionType
+    type: reducerActionType,
+    payload?: string
 
 }
 
@@ -25,15 +27,20 @@ const reducer = (state: typeof initialState, action: ReducerAction): typeof init
         default:
             throw new Error('error')
 
-        case reducerActionType.INCREMENT:
+        case reducerActionType.increment:
             return {
                 ...state,
                 count: state.count + 1
             }
-        case reducerActionType.DECREMENT:
+        case reducerActionType.decrement:
             return {
                 ...state,
                 count: state.count - 1
+            }
+        case reducerActionType.newInput:
+            return {
+                ...state,
+                text: action.payload ?? ''
             }
 
     }
@@ -49,12 +56,23 @@ function Counter({ children }: ChildrenType) {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const increment = () => {
-        dispatch({ type: reducerActionType.INCREMENT })
+        dispatch({
+            type: reducerActionType.increment
+        })
 
     }
 
     const decrement = () => {
-        dispatch({ type: reducerActionType.DECREMENT })
+        dispatch({
+            type: reducerActionType.decrement
+        })
+    }
+
+    const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+        dispatch({
+            type: reducerActionType.newInput,
+            payload: target.value
+        })
     }
 
 
@@ -64,6 +82,7 @@ function Counter({ children }: ChildrenType) {
             <p>You clicked {children(state.count)} times</p>
             <button onClick={increment}>Increment</button>
             <button onClick={decrement}>Decrement</button>
+            <input type="text" onChange={handleInputChange} />
         </div>
     );
 }
