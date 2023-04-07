@@ -1,4 +1,5 @@
 import {useState, useEffect, useCallback, MouseEvent, KeyboardEvent, useMemo, useRef} from "react";
+import Counter from "./Counter";
 
 interface User {
     id: number;
@@ -52,17 +53,22 @@ function App() {
     console.log(inputRef?.current)
     console.log(inputRef?.current?.value)
 
+
+    const currentCount = (num: number) => {
+        return <>
+            Current Count: {num}
+        </>
+    }
+
     return (
         <div>
-            <h1>React Typescript</h1>
-            <pre>
-        {JSON.stringify(count, null, 2)}
-      </pre>
-            <button onClick={addTwo}>Increment</button>
+            {/*<button onClick={() => setCount((val) => val + 1)}>Increment</button>*/}
+            {/*<input ref={inputRef} type="text"/>*/}
+            <Counter>
 
-            <h2>{result}</h2>
-            <button onClick={() => setCount((val) => val + 1)}>Increment</button>
-            <input ref={inputRef} type="text"/>
+                {currentCount}
+
+            </Counter>
         </div>
     )
 }
