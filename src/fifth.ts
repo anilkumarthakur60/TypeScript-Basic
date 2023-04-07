@@ -109,10 +109,62 @@ type AssignPreview = Omit<Assignment, "grade" | "verified">
 
 const preview: AssignPreview = {
     studentId: '123',
-    title: 'Math'
+    title: 'Math',
 }
+
+
+type adjustedGrade = Exclude<LetterGrades, "U">
+
+
+type highGrades = Extract<LetterGrades, "A" | "B">
+
+type AllPossibleGrade = "Dave" | "John" | null | undefined
+
+type NameOnly = NonNullable<AllPossibleGrade>
+
+// type newAssign = {
+//     title: string,
+//     point: number
+// }
+
+
+// const createNewAssign = (title: string, point: number): newAssign => {
+
+//     return {
+//         title,
+//         point
+//     }
+// }
+
+// type newAssign = {
+//     title: string,
+//     point: number
+// }
+
+
+const createNewAssign = (title: string, point: number) => {
+
+    return {
+        title,
+        point
+    }
+}
+
+type NewAssignss = ReturnType<typeof createNewAssign>
+
+console.log('----------logging data----------', createNewAssign('jkdgfs', 23))
+
+//parameters
+
+type AssignParameters = Parameters<typeof createNewAssign>
+
+
+const assignArgs: AssignParameters = ["generic", 100];
+
+const tsAssign2: NewAssignss = createNewAssign(...assignArgs);
+console.log('----------logging data------tsAssign2----', tsAssign2)
+
 
 console.log('------------finish fifthe');
 
 
-// 4: 40

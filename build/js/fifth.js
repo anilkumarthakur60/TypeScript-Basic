@@ -50,7 +50,30 @@ const score = {
 };
 const preview = {
     studentId: '123',
-    title: 'Math'
+    title: 'Math',
 };
+// type newAssign = {
+//     title: string,
+//     point: number
+// }
+// const createNewAssign = (title: string, point: number): newAssign => {
+//     return {
+//         title,
+//         point
+//     }
+// }
+// type newAssign = {
+//     title: string,
+//     point: number
+// }
+const createNewAssign = (title, point) => {
+    return {
+        title,
+        point
+    };
+};
+console.log('----------logging data----------', createNewAssign('jkdgfs', 23));
+const assignArgs = ["generic", 100];
+const tsAssign2 = createNewAssign(...assignArgs);
+console.log('----------logging data------tsAssign2----', tsAssign2);
 console.log('------------finish fifthe');
-// 4: 40
