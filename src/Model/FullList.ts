@@ -7,9 +7,6 @@ interface List {
     clearList(): void,
     addItem(item: ListItem): void,
     removeItem(id: string): void,
-
-
-
 }
 
 
@@ -84,9 +81,7 @@ export default class FullList implements List {
 
     removeItem(id: string): void {
 
-        this._list = this._list.filter(item => {
-            item.id != id
-        })
+        this._list = this._list.filter(item => item.id !== id)
         this.save();
 
     }
