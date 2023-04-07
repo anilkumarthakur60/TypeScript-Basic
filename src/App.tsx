@@ -9,14 +9,29 @@ function App(): ReactElement {
   const [count, setCount] = useState(0)
 
   const lists = [
-    'hello',
-    'world',
-    'this',
-    'is',
-    'a',
-    'list'
+    {
+      name: 'A',
+      age: 10
+    },
+    {
+      name: 'B',
+      age: 20
+    },
+    {
+      name: 'C',
+      age: 30
 
+    }
   ]
+
+  const render = (item: {
+    name: string,
+    age: number
+  }) => {
+
+    return <span className='gold'>{item.name},{item.age}</span>
+  }
+
 
   return (
     <>
@@ -29,7 +44,8 @@ function App(): ReactElement {
       <Counter setCount={setCount} >
         Count is {count}
       </Counter>
-      <List items={lists} render={(item: string) => <span className='gold'>{item}</span>} />
+      {/* <List items={lists} render={(item: string) => <span className='gold'>{item}</span>} /> */}
+      <List items={lists} render={(val) => render(val)} />
     </>
   )
 }
