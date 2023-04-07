@@ -165,6 +165,35 @@ const tsAssign2: NewAssignss = createNewAssign(...assignArgs);
 console.log('----------logging data------tsAssign2----', tsAssign2)
 
 
+interface User {
+    id: string,
+    name: string,
+    email: string,
+}
+
+const fetchUser = async (): Promise<User[]> => {
+
+    const data = await fetch('https://jsonplaceholder.typicode.com/users').then(res => {
+        return res.json()
+    }).catch(error => {
+        if (error instanceof Error) {
+            console.log('error', error.message)
+        }
+    }).finally(() => {
+        console.log('finally')
+    })
+
+    console.log('----------logging data----------', data)
+    return data
+
+
+}
+
+
+type FetchUsersReturnType = Awaited<ReturnType<typeof fetchUser>>
+
+fetchUser().then(users => console.log('---', users))
+
 console.log('------------finish fifthe');
 
 

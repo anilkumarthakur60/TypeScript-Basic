@@ -1,5 +1,14 @@
 "use strict";
 //utility types
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 //partials
 console.log('-----------fifth started ');
 const updateAssignment = (assign, propsToUpdate) => {
@@ -76,4 +85,18 @@ console.log('----------logging data----------', createNewAssign('jkdgfs', 23));
 const assignArgs = ["generic", 100];
 const tsAssign2 = createNewAssign(...assignArgs);
 console.log('----------logging data------tsAssign2----', tsAssign2);
+const fetchUser = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch('https://jsonplaceholder.typicode.com/users').then(res => {
+        return res.json();
+    }).catch(error => {
+        if (error instanceof Error) {
+            console.log('error', error.message);
+        }
+    }).finally(() => {
+        console.log('finally');
+    });
+    console.log('----------logging data----------', data);
+    return data;
+});
+fetchUser().then(users => console.log('---', users));
 console.log('------------finish fifthe');
