@@ -1,118 +1,113 @@
-import React, { createContext, ChangeEvent, useReducer, ReactElement, useCallback } from 'react';
-
-
-const enum reducerActionType {
-    increment,
-    decrement,
-    newInput
-
-}
-
-type ReducerAction = {
-    type: reducerActionType,
-    payload?: string
-
-}
+import { createContext, useReducer, ChangeEvent, ReactElement, useCallback, useContext } from "react"
 
 type StateType = {
+    count: number;
+    text: string;
+}
+
+
+
+type ReducerAction = {
+    type: REDUCER_ACTION_TYPE,
+    payload?: string,
+}
+
+type ChildrenType = {
+    children?: ReactElement | ReactElement[] | undefined
+}
+
+
+type UseCounterHookType = {
     count: number,
-    text: string
+    increment: () => void,
+    decrement: () => void,
 }
-export const initialState: StateType = {
-    count: 0,
-    text: ''
+
+type UseCounterTextHookType = {
+    text: string,
+    handleTextInput: (e: ChangeEvent<HTMLInputElement>) => void,
 }
+
+type UseCounterContextType = ReturnType<typeof useCounterContext>
+
+const enum REDUCER_ACTION_TYPE {
+    INCREMENT,
+    DECREMENT,
+    NEW_INPUT,
+}
+
+
+export const initState: StateType = { count: 0, text: '' }
+
 
 const reducer = (state: StateType, action: ReducerAction): StateType => {
     switch (action.type) {
+        case REDUCER_ACTION_TYPE.INCREMENT:
+            return { ...state, count: state.count + 1 }
+        case REDUCER_ACTION_TYPE.DECREMENT:
+            return { ...state, count: state.count - 1 }
+        case REDUCER_ACTION_TYPE.NEW_INPUT:
+            return { ...state, text: action.payload ?? '' }
         default:
-            throw new Error('error')
-
-        case reducerActionType.increment:
-            return {
-                ...state,
-                count: state.count + 1
-            }
-        case reducerActionType.decrement:
-            return {
-                ...state,
-                count: state.count - 1
-            }
-        case reducerActionType.newInput:
-            return {
-                ...state,
-                text: action.payload ?? ''
-            }
-
+            throw new Error()
     }
 }
 
-const useConterContext = (initialState: StateType) => {
+const useCounterContext = (initState: StateType) => {
+    const [state, dispatch] = useReducer(reducer, initState)
 
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const increment = useCallback(() => dispatch({ type: REDUCER_ACTION_TYPE.INCREMENT }), [])
 
-    const increment = useCallback(() => {
+    const decrement = useCallback(() => dispatch({ type: REDUCER_ACTION_TYPE.DECREMENT }), [])
+
+    const handleTextInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch({
-            type: reducerActionType.increment
+            type: REDUCER_ACTION_TYPE.NEW_INPUT,
+            payload: e.target.value
         })
+    }, [])
 
-        const decrement = useCallback(() => {
-            dispatch({
-                type: reducerActionType.decrement
-            })
-        }, [])
+    return { state, increment, decrement, handleTextInput }
+}
 
-        const handleInputChange =
 
-            useCallback(() => {
-                ({ target }: ChangeEvent<HTMLInputElement>) => {
-                    dispatch({
-                        type: reducerActionType.newInput,
-                        payload: target.value
-                    })
-                }
-            }, [])
+const initContextState: UseCounterContextType = {
+    state: initState,
+    increment: () => {
+    },
+    decrement: () => {
+    },
+    handleTextInput: (e: ChangeEvent<HTMLInputElement>) => {
+    },
+}
 
-        return {
-            state,
-            increment,
-            decrement,
-            handleInputChange,
-            dispatch
-        }
+export const CounterContext = createContext<UseCounterContextType>(initContextState)
+
+
+export const CounterProvider = ({
+    children
+}: ChildrenType): ReactElement => {
+    return (
+        <CounterContext.Provider value={useCounterContext(initState)}>
+            {children}
+        </CounterContext.Provider>
+    )
+}
+export const useCounter = (): UseCounterHookType => {
+    const { state: { count }, increment, decrement } = useContext(CounterContext)
+
+    return {
+        count,
+        increment,
+        decrement
     }
+}
 
+export const useCounterText = (): UseCounterTextHookType => {
+    const { state: { text }, handleTextInput } = useContext(CounterContext)
 
-    type UseCounterContextType = ReturnType<typeof useConterContext>
-
-    const initialContextState: UseCounterContextType = {
-
-        state: initialState,
-        increment: () => {
-        },
-        decrement: () => {
-        },
-        handleInputChange: (e: ChangeEvent<HTMLInputElement>) => {
-        },
-        dispatch: (action: ReducerAction) => {
-        }
+    return {
+        text,
+        handleTextInput
     }
-
-    export const CounterContext = createContext<UseCounterContextType>(initialContextState)
-
-    type ChildrenType = {
-        children?: ReactElement | undefined
-    }
-
-
-    export const CounterProvider = ({
-        children, ...initialState
-    }: ChildrenType & StateType): ReactElement => {
-
-
-        return (
-            <CounterContext.Provider value={contextState}>
-                {children}
-            </CounterContext.Provider>
-        )
-    }
+}
