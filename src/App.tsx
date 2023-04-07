@@ -3,9 +3,20 @@ import './App.css'
 import Headings from './components/Heading'
 import { Section } from './components/Section';
 import Counter from './components/Counter';
+import List from './components/List';
 
 function App(): ReactElement {
   const [count, setCount] = useState(0)
+
+  const lists = [
+    'hello',
+    'world',
+    'this',
+    'is',
+    'a',
+    'list'
+
+  ]
 
   return (
     <>
@@ -18,6 +29,7 @@ function App(): ReactElement {
       <Counter setCount={setCount} >
         Count is {count}
       </Counter>
+      <List items={lists} render={(item: string) => <span className='gold'>{item}</span>} />
     </>
   )
 }
