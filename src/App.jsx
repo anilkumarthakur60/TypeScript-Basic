@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {Name1, Name2} from './NameExportFile.jsx'
 import DefaultExportName from "./DefaultExport.jsx";
+import DefaultExport1,{NameExport1} from "./CombinedExportExample.jsx";
 
 function App() {
     const [count, setCount] = useState(0)
@@ -28,6 +29,8 @@ function App() {
             <Name1/>
             <Name2/>
             <DefaultExportName/>
+            <DefaultExport1/>
+            <NameExport1/>
 
         </div>
     )
