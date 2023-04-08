@@ -1,14 +1,11 @@
-import React, { ReactElement } from 'react'
-import useCart from '../hooks/useCart'
-import { UserProductContextType } from '../context/ProductProvider';
-import useProducts from '../hooks/useProduct';
-import Product from './Product';
+import useCart from "../hooks/useCart"
+import { ReactElement } from "react"
+import Product from "./Product"
+import useProducts from "../hooks/useProduct"
 
-export default function ProductList() {
-
+const ProductList = () => {
     const { dispatch, REDUCER_ACTIONS, cart } = useCart()
     const { products } = useProducts()
-
 
     let pageContent: ReactElement | ReactElement[] = <p>Loading...</p>
 
@@ -36,3 +33,4 @@ export default function ProductList() {
 
     return content
 }
+export default ProductList
