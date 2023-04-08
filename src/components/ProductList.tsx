@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import useCart from '../hooks/useCart'
 import { UserProductContextType } from '../context/ProductProvider';
 import useProducts from '../hooks/useProduct';
@@ -9,33 +9,29 @@ export default function ProductList() {
     const { dispatch, REDUCER_ACTIONS, cart } = useCart()
     const { products } = useProducts()
 
-    console.log(products);
 
-
-    let pageContent: React.ReactElement | React.ReactElement[] = <p>Loading </p>
-
+    let pageContent: ReactElement | ReactElement[] = <p>Loading...</p>
 
     if (products?.length) {
-        pageContent = products.map((product) => {
-
+        pageContent = products.map(product => {
             const inCart: boolean = cart.some(item => item.sku === product.sku)
 
             return (
-                <Product key={product.sku}
+                <Product
+                    key={product.sku}
                     product={product}
-                    inCart={inCart}
                     dispatch={dispatch}
                     REDUCER_ACTIONS={REDUCER_ACTIONS}
+                    inCart={inCart}
                 />
             )
         })
-
     }
 
     const content = (
-        <div className="main main main--products">
+        <main className="main main--products">
             {pageContent}
-        </div>
+        </main>
     )
 
     return content
