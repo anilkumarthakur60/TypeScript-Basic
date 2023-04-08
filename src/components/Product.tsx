@@ -1,51 +1,40 @@
-import React, { Dispatch } from 'react'
-import useProducts from '../hooks/useProduct';
-import { ProductType } from '../context/ProductProvider';
-import { ReducerAction, ReducerActionType } from '../context/CartProvider';
+
+import { ReducerActionType, ReducerAction } from "../context/CartProvider"
+import { ReactElement, memo } from "react"
+import { ProductType } from "../context/ProductProvider"
 
 type PropsType = {
     product: ProductType,
-    inCart: boolean,
     dispatch: React.Dispatch<ReducerAction>,
-    REDUCER_ACTIONS: ReducerActionType
+    REDUCER_ACTIONS: ReducerActionType,
+    inCart: boolean,
 }
-export default function Product({ product,
-    inCart,
-    dispatch,
-    REDUCER_ACTIONS }: PropsType): React.ReactElement {
 
-    console.log(product);
+const Product = ({ product, dispatch, REDUCER_ACTIONS, inCart }: PropsType): ReactElement => {
 
-    const onAddCart = () => dispatch({
-        type: REDUCER_ACTIONS.add,
-        payload: {
-            ...product,
-            qty: 1
-        }
-    })
 
-    const itemInCart = inCart ? '-> Item in cart' : null
+    const onAddToCart = () => dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } })
+
+    const itemInCart = inCart ? ' → Item in Cart: ✔️' : null
 
     const content =
-        <article className='product'>
-            <h3>{product?.name}</h3>
-            <p>Price: {product?.price}</p>
-            <p>
-                {
-                    new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD'
-                    }).format(product?.price)
-                }
-                {
-                    itemInCart
-                }
-            </p>
-            <p>{itemInCart}</p>
-            <button onClick={onAddCart}>Add to cart</button>
-
-
+        <article className="product">
+            <h3>{product.name}</h3>
+            <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}{itemInCart}</p>
+            <button onClick={onAddToCart}>Add to Cart</button>
         </article>
 
-    return content;
+    return content
 }
+
+function areProductsEqual({ product: prevProduct, inCart: prevInCart }: PropsType, { product: nextProduct, inCart: nextInCart }: PropsType) {
+    return (
+        Object.keys(prevProduct).every(key => {
+            return prevProduct[key as keyof ProductType] ===
+                nextProduct[key as keyof ProductType]
+        }) && prevInCart === nextInCart
+    )
+}
+const MemoizedProduct = memo<typeof Product>(Product, areProductsEqual)
+
+export default MemoizedProduct
