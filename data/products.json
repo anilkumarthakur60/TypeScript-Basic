@@ -1,94 +1,19 @@
 {
-  "product": [
+  "products": [
     {
       "sku": "item0001",
-      "name": "Product 1",
-      "price": 100
+      "name": "Widget",
+      "price": 9.99
     },
     {
       "sku": "item0002",
-      "name": "Product 2",
-      "price": 200
+      "name": "Premium Widget",
+      "price": 19.99
     },
     {
       "sku": "item0003",
-      "name": "Product 3",
-      "price": 300
-    },
-    {
-      "sku": "item0004",
-      "name": "Product 4",
-      "price": 400
-    },
-    {
-      "sku": "item0005",
-      "name": "Product 5",
-      "price": 500
-    },
-    {
-      "sku": "item0006",
-      "name": "Product 6",
-      "price": 600
-    },
-    {
-      "sku": "item0007",
-      "name": "Product 7",
-      "price": 700
-    },
-    {
-      "sku": "item0008",
-      "name": "Product 8",
-      "price": 800
-    },
-    {
-      "sku": "item0009",
-      "name": "Product 9",
-      "price": 900
-    },
-    {
-      "sku": "item0010",
-      "name": "Product 10",
-      "price": 1000
-    },
-    {
-      "sku": "item0011",
-      "name": "Product 11",
-      "price": 1100
-    },
-    {
-      "sku": "item0012",
-      "name": "Product 12",
-      "price": 1200
-    },
-    {
-      "sku": "item0013",
-      "name": "Product 13",
-      "price": 1300
-    },
-    {
-      "sku": "item0014",
-      "name": "Product 14",
-      "price": 1400
-    },
-    {
-      "sku": "item0015",
-      "name": "Product 15",
-      "price": 1500
-    },
-    {
-      "sku": "item0016",
-      "name": "Product 16",
-      "price": 1600
-    },
-    {
-      "sku": "item0017",
-      "name": "Product 17",
-      "price": 1700
-    },
-    {
-      "sku": "item0018",
-      "name": "Product 18",
-      "price": 1800
+      "name": "Deluxe Widget",
+      "price": 29.99
     }
   ]
 }
