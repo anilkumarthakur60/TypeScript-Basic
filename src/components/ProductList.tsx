@@ -9,6 +9,9 @@ export default function ProductList() {
     const { dispatch, REDUCER_ACTIONS, cart } = useCart()
     const { products } = useProducts()
 
+    console.log(products);
+
+
     let pageContent: React.ReactElement | React.ReactElement[] = <p>Loading </p>
 
 

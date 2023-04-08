@@ -62,16 +62,19 @@ export const ProductsContextProvider = ({ children }: ChildrenType): React.React
                 if (error instanceof Error) console.log(error);
 
             })
+            setProducts(data)
             return data
         }
 
-        fetchProducts().then(products => {
-            setProducts(products)
-        })
+        fetchProducts()
+
+
     }, [])
 
+
+
     return (
-        <ProductsContext.Provider value={{ products }}>
+        <ProductsContext.Provider value={{ products: products }}>
             {children}
         </ProductsContext.Provider>
     )
