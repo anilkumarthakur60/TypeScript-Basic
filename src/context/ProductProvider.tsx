@@ -13,25 +13,25 @@ export type UserProductContextType = {
 }
 
 
-// const initState: ProductType[] = []
+const initState: ProductType[] = []
 
-const initState: ProductType[] = [
-    {
-        "sku": "sku1",
-        "name": "Product 1",
-        "price": 100
-    },
-    {
-        "sku": "sku2",
-        "name": "Product 2",
-        "price": 200
-    },
-    {
-        "sku": "sku3",
-        "name": "Product 3",
-        "price": 300
-    }
-];
+// const initState: ProductType[] = [
+//     {
+//         "sku": "sku1",
+//         "name": "Product 1",
+//         "price": 100
+//     },
+//     {
+//         "sku": "sku2",
+//         "name": "Product 2",
+//         "price": 200
+//     },
+//     {
+//         "sku": "sku3",
+//         "name": "Product 3",
+//         "price": 300
+//     }
+// ];
 
 
 const initContextState: UserProductContextType = {
@@ -52,7 +52,7 @@ export const ProductsContextProvider = ({ children }: ChildrenType): React.React
     useEffect(() => {
 
         const fetchProducts = async (): Promise<ProductType[]> => {
-            const data = await fetch('https://localhost:3500/products').then(res => {
+            const data = await fetch('http://localhost:3500/product').then(res => {
                 if (res.status === 200) {
                     return res.json()
                 } else {

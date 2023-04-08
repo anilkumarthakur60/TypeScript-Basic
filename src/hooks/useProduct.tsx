@@ -3,10 +3,10 @@ import ProductsContext from "../context/ProductProvider"
 import { UserProductContextType } from '../context/ProductProvider';
 
 
-const useProduct = (): UserProductContextType => {
+const useProducts = (): UserProductContextType => {
 
     return useContext(ProductsContext)
 }
 
 
-export default useProduct
+export default useProducts
